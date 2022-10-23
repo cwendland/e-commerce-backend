@@ -17,6 +17,16 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.get('/product-tag', async (req, res) => {
+  try{
+    const tags = await ProductTag.findAll();
+    res.json(tags);
+  }
+  catch(err) {
+    res.json(err);
+  }
+})
+
 router.get('/:id', async (req, res) => {
   // find a single tag by its `id`
   // be sure to include its associated Product data
@@ -24,10 +34,10 @@ router.get('/:id', async (req, res) => {
     const tag = await Tag.findByPk(req.params.id, {
       include: {model: Product}
     });
-    res.send(200).json(tag);
+    res.json(tag);
   }
   catch (err) {
-    res.send(400).json(err);
+    res.json(err);
   }
 });
 
@@ -35,9 +45,9 @@ router.post('/', async (req, res) => {
   // create a new tag
   try{
     const tag = await Tag.create(req.params.body);
-    res.send(200).json(tag);
+    res.json(tag);
   } catch(err) {
-    res.send(400).json(err);
+    res.json(err);
   }
 });
 
@@ -49,9 +59,9 @@ router.put('/:id', async (req, res) => {
         id: req.params.id
       }
     });
-    res.send(200).json(tag);
+    res.json(tag);
   } catch(err) {
-    res.send(400).json(err);
+    res.json(err);
   }
 });
 
@@ -63,9 +73,9 @@ router.delete('/:id', async (req, res) => {
         id: req.params.id
       }
     });
-    res.send(200).json(tag);
+    res.json(tag);
   } catch(err) {
-    res.send(400).json(err);
+    res.json(err);
   }
 });
 
